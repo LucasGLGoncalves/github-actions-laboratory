@@ -4,8 +4,13 @@ on:
     branches: ['main']
   workflow_dispatch:
 jobs:
-  setup-inicial:
-    name: "setup de ambiente"
+
+  # build image
+  # push image
+  # update image on k8s
+
+  CI:
+    name: "image build"
     runs-on: ubuntu-latest
     container:
       image: alpine:3.22.0
