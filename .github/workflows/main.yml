@@ -6,7 +6,9 @@ on:
 jobs:
   setup-inicial:
     name: "setup de ambiente"
-    runs-on: alpine-latest
+    runs-on: ubuntu-latest
+    container:
+      image: alpine:3.22.0
     steps:
       - name: "atualização e instalação"
         run: apk update && apk add curl
