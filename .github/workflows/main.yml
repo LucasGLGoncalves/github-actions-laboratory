@@ -9,7 +9,6 @@ jobs:
   # build image
   # push image
   # docker logout
-  # update image on k8s
 
   CI:
     name: "code integration"
@@ -31,3 +30,27 @@ jobs:
           file: ./src/Dockerfile
           push: true
           tags: rukasu/github-actions-laboratory:latest
+
+  # access the cluster
+  # apply the deployment to update image on k8s
+
+  CD:
+    name: "project delivery"
+    runs-on: ubuntu-latest
+    needs: CI
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Connect via kubeconfig
+        uses: azure/k8s-set-context@v4.0.1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
+
+      - name: Apply deployment manifest
+        uses: Azure/k8s-deploy@v5
+        with:
+          manifests: |
+            ./k8s/deployment.yml
+          images: 'rukasu/github-actions-laboratory:latest'
