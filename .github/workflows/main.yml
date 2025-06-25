@@ -1,0 +1,14 @@
+name: actions-lab-workflow
+on:
+  push:
+    branches: ['main']
+  workflow_dispatch:
+jobs:
+  setup-inicial:
+    name: "setup de ambiente"
+    runs-on: alpine-latest
+    steps:
+      - name: "atualização e instalação"
+        run: apk update && apk add curl
+      - name: "dando um curl"
+        run: curl "http://google.com"
