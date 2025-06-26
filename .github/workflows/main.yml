@@ -29,7 +29,9 @@ jobs:
           context: ./src
           file: ./src/Dockerfile
           push: true
-          tags: rukasu/github-actions-laboratory:latest
+          tags: |
+            rukasu/github-actions-laboratory:v${{ github.run_number }}
+            rukasu/github-actions-laboratory:latest
 
   # access the cluster
   # apply the deployment to update image on k8s
@@ -53,4 +55,4 @@ jobs:
         with:
           manifests: |
             ./k8s/deployment.yml
-          images: 'rukasu/github-actions-laboratory:latest'
+          images: 'rukasu/github-actions-laboratory:v${{ github.run_number }}'

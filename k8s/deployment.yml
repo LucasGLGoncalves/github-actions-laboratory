@@ -23,11 +23,10 @@ kind: Service
 metadata:
   name: gh-actions-lab-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: gh-actions-lab-app
   ports:
   - port: 80
     targetPort: 5000
-    nodePort: 30000
     protocol: TCP
